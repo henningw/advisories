@@ -4,9 +4,8 @@
     - Henning Westerholt <hw at skalatan.de>
 - Fixed versions: Kamailio v5.1.4 and v5.0.7
 - References: CVE-2018-XXXX
-- Enable Security Advisory: <TODO>
 - Kamailio Security Advisory: https://www.kamailio.org/w/2018/03/TODO/
-- Tested vulnerable versions: 5.1 branch, master branch
+- Tested vulnerable versions: 5.1, 4.0, git master
 - Timeline:
     - Report date: 2018-05-07
     - Kamailio patch: 2018-05-07
@@ -19,7 +18,7 @@ A specially crafted SIP message with double `To` header and a malformed To `tag`
 
 ## Impact
 
-Abuse of this vulnerability leads to denial of service in Kamailio. Further research may show that exploitation leads to remote code execution.
+Abuse of this vulnerability leads to denial of service in Kamailio. Further research may show that exploitation leads to remote code execution. This vulnerability is rather old and will probably also apply to older versions of Kamailio and maybe even OpenSER.
 
 ## How to reproduce the issue
 
@@ -113,7 +112,7 @@ This security issue was discovered through the use of several month of fuzzing w
 
 ## Solutions and recommendations
 
-Apply the patch at <https://github.com/kamailio/kamailio/commit/03dd59249d17c55c749d4a4e806843f7f407e4ea> or make use of a release that includes that patch (e.g. 5.1.4 or 5.0.7).
+Apply the patch at <https://github.com/kamailio/kamailio/commit/281a6c6b6eaaf30058b603325e8ded20b99e1456> or make use of a release that includes that patch (e.g. 5.1.4 or 5.0.7).
 
 ## About Henning Westerholt
 
