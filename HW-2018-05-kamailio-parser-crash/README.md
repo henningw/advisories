@@ -31,7 +31,8 @@ Via: SIP/2.0/UDP 172.17.13.240:5061;branch=9hG4bKydcnjlpe
 To: <@127.0.0.1>;tag=
 From: 
 To: <sip:>
-Content-Length: 0
+Content-Length: 1
+
 ```
 
 You can use this python script to reproduce the crash:
@@ -81,15 +82,13 @@ Program terminated with signal SIGSEGV, Segmentation fault.
 152     ../sysdeps/x86_64/multiarch/memcpy-sse2-unaligned.S: No such file or directory.
 (gdb) bt
 #0  __memcpy_sse2_unaligned () at ../sysdeps/x86_64/multiarch/memcpy-sse2-unaligned.S:152
-#1  0x000000000057ac26 in build_res_buf_from_sip_req (code=400, text=0x7ffc94ef0780, new_tag=0x7fe8e82ee250 <sl_tag>, msg=0x7fe8e923ca00, returned_len=0x7ffc94ef07e8, 
-    bmark=0x7ffc94ef0790) at core/msg_translator.c:2502
+#1  0x000000000057ac26 in build_res_buf_from_sip_req (code=400, text=0x7ffc94ef0780, new_tag=0x7fe8e82ee250 <sl_tag>, msg=0x7fe8e923ca00, returned_len=0x7ffc94ef07e8, bmark=0x7ffc94ef0790) at core/msg_translator.c:2502
 #2  0x00007fe8e80de2ee in sl_reply_helper (msg=0x7fe8e923ca00, code=400, reason=0x7fe8e6a7e85b "Content-Length mis-match", tag=0x0) at sl_funcs.c:168
 #3  0x00007fe8e80df4c3 in sl_send_reply (msg=0x7fe8e923ca00, code=400, reason=0x7fe8e6a7e85b "Content-Length mis-match") at sl_funcs.c:304
 #4  0x00007fe8e6a6d34f in sanity_reply (msg=0x7fe8e923ca00, code=400, reason=0x7fe8e6a7e85b "Content-Length mis-match") at sanity.c:55
 #5  0x00007fe8e6a727b5 in check_cl (_msg=0x7fe8e923ca00) at sanity.c:557
 #6  0x00007fe8e6a7c97a in sanity_check (_msg=0x7fe8e923ca00, msg_checks=1511, uri_checks=7) at sanity_mod.c:194
-#7  0x00007fe8e6a7cb0a in w_sanity_check (_msg=0x7fe8e923ca00, _number=0x5e7 <error: Cannot access memory at address 0x5e7>, 
-    _arg=0x7 <error: Cannot access memory at address 0x7>) at sanity_mod.c:254
+#7  0x00007fe8e6a7cb0a in w_sanity_check (_msg=0x7fe8e923ca00, _number=0x5e7 <error: Cannot access memory at address 0x5e7>, _arg=0x7 <error: Cannot access memory at address 0x7>) at sanity_mod.c:254
 #8  0x0000000000439780 in do_action (h=0x7ffc94ef1160, a=0x7fe8e9210960, msg=0x7fe8e923ca00) at core/action.c:1079
 #9  0x0000000000445e1d in run_actions (h=0x7ffc94ef1160, a=0x7fe8e9210960, msg=0x7fe8e923ca00) at core/action.c:1565
 #10 0x00000000004464fa in run_actions_safe (h=0x7ffc94ef2480, a=0x7fe8e9210960, msg=0x7fe8e923ca00) at core/action.c:1633
@@ -101,8 +100,7 @@ Program terminated with signal SIGSEGV, Segmentation fault.
 #16 0x00000000004360c5 in do_action (h=0x7ffc94ef2480, a=0x7fe8e91fb420, msg=0x7fe8e923ca00) at core/action.c:691
 #17 0x0000000000445e1d in run_actions (h=0x7ffc94ef2480, a=0x7fe8e91fb420, msg=0x7fe8e923ca00) at core/action.c:1565
 #18 0x00000000004465c2 in run_top_route (a=0x7fe8e91fb420, msg=0x7fe8e923ca00, c=0x0) at core/action.c:1654
-#19 0x0000000000587d61 in receive_msg (
-    buf=0xa525e0 <buf> "REGISTER sip:127.0.0.1:0 SIP/2.0\nVia: SIP/2.0/UDP 172\035\061\067.13.240:5061;rport;branch=\223\071hG4bKydcnjlpe\nMax-Forwards: 69\nTo: <@127.0.0.1>;tag=;branch=z9hG4bKya-tag\nFrom: <sip:user@127.0.0.Forwards: 70\nTo: <"..., len=417, rcv_info=0x7ffc94ef2aa0) at core/receive.c:331
+#19 0x0000000000587d61 in receive_msg (buf=0xa525e0 <buf> "REGISTER sip:127.0.0.1:0 SIP/2.0\nVia: SIP/2.0/UDP 172\035\061\067.13.240:5061;rport;branch=\223\071hG4bKydcnjlpe\nMax-Forwards: 69\nTo: <@127.0.0.1>;tag=;branch=z9hG4bKya-tag\nFrom: <sip:user@127.0.0.Forwards: 70\nTo: <"..., len=417, rcv_info=0x7ffc94ef2aa0) at core/receive.c:331
 #20 0x000000000046ca74 in udp_rcv_loop () at core/udp_server.c:554
 #21 0x00000000004253d1 in main_loop () at main.c:1432
 #22 0x000000000042d631 in main (argc=16, argv=0x7ffc94ef2fc8) at main.c:2650
