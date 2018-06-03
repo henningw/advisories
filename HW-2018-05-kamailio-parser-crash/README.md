@@ -14,7 +14,7 @@
 
 ## Description
 
-A specially crafted SIP message with double `To` header and a malformed To `tag` causes a segmentation fault and crashes Kamailio.
+A specially crafted SIP message with double `To` header and an empty To `tag` causes a segmentation fault and crashes Kamailio.
 
 ## Impact
 
@@ -22,7 +22,7 @@ Abuse of this vulnerability leads to denial of service in Kamailio. Further rese
 
 ## How to reproduce the issue
 
-The following SIP message was used to reproduce the issue with double `To` headers containing the `tag` that triggers the vulnerability:
+The following SIP message with double `To` headers containing the empty `tag` was used to reproduce the vulnerability:
 
 
 ```
