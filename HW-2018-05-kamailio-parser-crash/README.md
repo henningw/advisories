@@ -10,7 +10,7 @@
     - Report date: 2018-05-07
     - Kamailio patch: 2018-05-07
     - Kamailio release with patch: 2018-06-XX
-    - Enable Security advisory: 2018-06-XX
+    - Security advisory: 2018-06-XX
 
 ## Description
 
@@ -116,7 +116,7 @@ Apply the patch at <https://github.com/kamailio/kamailio/commit/281a6c6b6eaaf300
 
 ## About Henning Westerholt
 
-[Henning Westerholt]<https://www.kamailio.org/w/henning-westerholt/> is a core developer of Kamailio since 2007. He provides consulting for Kamailio. 
+[Henning Westerholt]<https://www.kamailio.org/w/henning-westerholt/> is a core developer of Kamailio since 2007. He provides consulting services for Kamailio. 
 
 ## Disclaimer
 
