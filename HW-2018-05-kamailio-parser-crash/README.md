@@ -1,4 +1,4 @@
-# Parser segmentation fault crash in Kamailio, denial of service possible
+# Core segmentation fault crash in Kamailio related to To header processing, denial of service possible
 
 - Authors:
     - Henning Westerholt <hw at skalatan.de>
@@ -14,7 +14,7 @@
 
 ## Description
 
-A specially crafted SIP message with double `To` header and an empty To `tag` causes a segmentation fault and crashes Kamailio.
+A specially crafted SIP message with double `To` header and an empty To `tag` causes a segmentation fault and crashes Kamailio. The reason is missing input validation in the `build_res_buf_from_sip_req` core function.
 
 ## Impact
 
@@ -22,7 +22,7 @@ Abuse of this vulnerability leads to denial of service in Kamailio. Further rese
 
 ## How to reproduce the issue
 
-The following SIP message with double `To` headers containing the empty `tag` was used to reproduce the vulnerability:
+The following SIP message with double `To` headers containing the empty `tag` can be used to reproduce the vulnerability:
 
 
 ```
@@ -106,7 +106,7 @@ Program terminated with signal SIGSEGV, Segmentation fault.
 #22 0x000000000042d631 in main (argc=16, argv=0x7ffc94ef2fc8) at main.c:2650
 ```
 
-This security issue was discovered through the use of several month of fuzzing with [afl](http://lcamtuf.coredump.cx/afl/) and an internal toolset.
+This security issue was discovered through extensive SIP message fuzzing with [afl](http://lcamtuf.coredump.cx/afl/) and an internal toolset.
 
 ## Solutions and recommendations
 
@@ -114,7 +114,7 @@ Apply the patch at <https://github.com/kamailio/kamailio/commit/281a6c6b6eaaf300
 
 ## About Henning Westerholt
 
-[Henning Westerholt]<https://www.kamailio.org/w/henning-westerholt/> is a core developer of Kamailio since 2007. He provides consulting services for Kamailio. 
+[Henning Westerholt]<https://www.kamailio.org/w/henning-westerholt/> is a core developer of Kamailio since 2007. He provides consulting services for Kamailio in the high-availability and security field.
 
 ## Disclaimer
 
