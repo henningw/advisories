@@ -114,7 +114,7 @@ Apply the patch at <https://github.com/kamailio/kamailio/commit/281a6c6b6eaaf300
 
 ## About Henning Westerholt
 
-[Henning Westerholt]<https://www.kamailio.org/w/henning-westerholt/> is a core developer of Kamailio since 2007. He provides consulting services for Kamailio in the high-availability and security field.
+[Henning Westerholt]<https://www.kamailio.org/w/henning-westerholt/> is a core developer of Kamailio since 2007. He provides consulting services for Kamailio in the performance, reliability and security areas.
 
 ## Disclaimer
 
