@@ -1,7 +1,6 @@
-# Core segmentation fault crash in Kamailio related to Via header processing, denial of service possible
+## Security vulnerability in Kamailio core related to Via header processing, denial of service possible.
 
-- Authors:
-    - Henning Westerholt <hw at skalatan.de>
+- Author: Henning Westerholt <hw at skalatan.de>
 - Fixed versions: Kamailio v5.1.4 and v5.0.7
 - References: CVE-2018-XXXX
 - Kamailio Security Advisory: https://www.kamailio.org/w/2018/03/TODO/
@@ -9,18 +8,18 @@
 - Timeline:
     - Report date: 2018-06-03
     - Kamailio patch: 2018-06-03
-    - Kamailio release with patch: 2018-06-XX
-    - Security advisory: 2018-06-XX
+    - Kamailio release with patch: 2018-06-05
+    - Security advisory: 2018-06-13
 
-## Description
+### Description
 
-A specially crafted SIP message with several invalid `Via` headers causes a segmentation fault and crashes Kamailio. The reason is missing input validation in the `crcitt_string_array` core function for calculating a CRC hash for To tags.  An additional error is present in the `check_via_address` core function, this function also misses input validation.
+There exists a security vulnerability in the Kamailio core related to Via header processing. A specially crafted SIP message with several invalid `Via` headers causes a segmentation fault and crashes Kamailio. The reason is missing input validation in the `crcitt_string_array` core function for calculating a CRC hash for To tags.  An additional error is present in the `check_via_address` core function, this function also misses input validation.
 
-## Impact
+### Impact
 
 Abuse of this vulnerability leads to denial of service in Kamailio. Further research may show that exploitation leads to remote code execution. This vulnerability is rather old and will probably also apply to older versions of Kamailio and maybe even OpenSER.
 
-## How to reproduce the issue
+### How to reproduce the issue
 
 The following SIP message with several invalid `Via` header can be used to reproduce the vulnerability:
 
@@ -102,13 +101,13 @@ Program received signal SIGSEGV, Segmentation fault.
 
 This security issue was discovered through extensive SIP message fuzzing with [afl](http://lcamtuf.coredump.cx/afl/) and an internal toolset.
 
-## Solutions and recommendations
+### Solutions and recommendations
 
-Apply the patch at <https://github.com/kamailio/kamailio/commit/ad68e402ece8089f133c10de6ce319f9e28c0692> or make use of a release that includes that patch (e.g. 5.1.4 or 5.0.7).
+Apply the patch from [github](https://github.com/kamailio/kamailio/commit/ad68e402ece8089f133c10de6ce319f9e28c0692) or make use of a release that includes that patch (e.g. 5.1.4 or 5.0.7). At the moment no workarounds (e.g. in the configuration) are known.
 
-## About Henning Westerholt
+### About Henning Westerholt
 
-[Henning Westerholt]<https://www.kamailio.org/w/henning-westerholt/> is a core developer of Kamailio since 2007. He provides consulting services for Kamailio in the performance, reliability and security areas.
+[Henning Westerholt](https://skalatan.de/about) is a core developer of Kamailio since 2007. He provides consulting services for Kamailio in the performance, reliability and security areas.
 
 ## Disclaimer
 
