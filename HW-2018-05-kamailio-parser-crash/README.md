@@ -109,7 +109,7 @@ This security issue was discovered through extensive SIP message fuzzing with [a
 
 ### Solutions and recommendations
 
-Apply the patch from [github](https://github.com/kamailio/kamailio/commit/281a6c6b6eaaf30058b603325e8ded20b99e1456) or make use of a release that includes that patch (e.g. 5.1.4 or 5.0.7). At the moment no workarounds (e.g. in the configuration) are known.
+Apply the [patch](https://github.com/kamailio/kamailio/commit/281a6c6b6eaaf30058b603325e8ded20b99e1456) from github or make use of a release that includes that patch (e.g. 5.1.4 or 5.0.7). At the moment no workarounds (e.g. in the configuration) are known.
 
 ### About Henning Westerholt
 
