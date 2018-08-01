@@ -3,7 +3,7 @@
 - Author: Henning Westerholt <hw at skalatan.de>
 - Fixed versions: Kamailio v5.1.4 and v5.0.7
 - References: CVE-2018-XXXX
-- Kamailio Security Advisory: https://www.kamailio.org/w/2018/03/TODO/
+<!--- Kamailio Security Advisory: todo-->
 - Tested vulnerable versions: 5.1, 4.0, git master
 - Timeline:
     - Report date: 2018-06-03

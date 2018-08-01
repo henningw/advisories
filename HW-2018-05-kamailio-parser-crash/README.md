@@ -2,8 +2,8 @@
 
 - Author: Henning Westerholt <hw at skalatan.de>
 - Fixed versions: Kamailio v5.1.4 and v5.0.7
-- References: CVE-2018-XXXX
-- Kamailio Security Advisory: https://www.kamailio.org/w/2018/03/TODO/
+- References: CVE-2018-14767
+- Kamailio Security Advisory: [link](https://www.kamailio.org/w/2018/07/kamailio-security-announcement-for-kamailio-core/)
 - Tested vulnerable versions: 5.1, 4.0, git master
 - Timeline:
     - Report date: 2018-05-07
@@ -13,7 +13,7 @@
 
 ### Description
 
-There exists a security vulnerability in the Kamailio core related to To header processing. A specially crafted SIP message with double `To` header and an empty To `tag` causes a segmentation fault and crashes Kamailio. The reason is missing input validation in the `build_res_buf_from_sip_req` core function.
+There exists a security vulnerability in the Kamailio SIP server related to `To` header processing. A specially crafted SIP message with double `To` header and an empty To `tag` causes a segmentation fault and crashes Kamailio. The reason is missing input validation in the `build_res_buf_from_sip_req` core function.
 
 ### Impact
 
@@ -105,15 +105,15 @@ Program terminated with signal SIGSEGV, Segmentation fault.
 #22 0x000000000042d631 in main (argc=16, argv=0x7ffc94ef2fc8) at main.c:2650
 ```
 
-This security issue was discovered through extensive SIP message fuzzing with [afl](http://lcamtuf.coredump.cx/afl/) and an internal toolset.
+This security issue was discovered through extensive SIP message fuzzing with [afl](http://lcamtuf.coredump.cx/afl/?target=_blank) and an internal toolset.
 
 ### Solutions and recommendations
 
-Apply the [patch](https://github.com/kamailio/kamailio/commit/281a6c6b6eaaf30058b603325e8ded20b99e1456) from github or make use of a release that includes that patch (e.g. 5.1.4 or 5.0.7). At the moment no workarounds (e.g. in the configuration) are known.
+Apply the [patch](https://github.com/kamailio/kamailio/commit/281a6c6b6eaaf30058b603325e8ded20b99e1456?target=_blank) from github or make use of a release that includes that patch (e.g. 5.1.4 or 5.0.7). At the moment no workarounds (e.g. in the configuration) are known.
 
 ### About Henning Westerholt
 
-[Henning Westerholt](https://skalatan.de/about) is a core developer of Kamailio since 2007. He provides consulting services for Kamailio in the performance, reliability and security areas.
+[Henning Westerholt](https://skalatan.de/about) is a core developer of Kamailio since 2007. He provides consulting services for Kamailio and VoIP services in the performance, reliability and security areas.
 
 ### Disclaimer
 
