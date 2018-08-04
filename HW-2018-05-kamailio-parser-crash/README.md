@@ -109,7 +109,14 @@ This security issue was discovered through extensive SIP message fuzzing with [a
 
 ### Solutions and recommendations
 
-Apply the [patch](https://github.com/kamailio/kamailio/commit/281a6c6b6eaaf30058b603325e8ded20b99e1456?target=_blank) from github or make use of a release that includes that patch (e.g. 5.1.4 or 5.0.7). At the moment no workarounds (e.g. in the configuration) are known.
+Apply the [patch](https://github.com/kamailio/kamailio/commit/281a6c6b6eaaf30058b603325e8ded20b99e1456?target=_blank) from github or make use of a release that includes that patch (e.g. 5.1.4 or 5.0.7). For older Kamailio version and in case you need more time for an update you can add the following logic on top of to your `request_route` block in your kamailio configuration file. This will drop this malicious  message and prevent its processing.
+
+```
+if($(hdr(To)[1]) != $null) {
+    xlog("second To header not null - dropping message");
+    drop;
+}
+```
 
 ### About Henning Westerholt
 
