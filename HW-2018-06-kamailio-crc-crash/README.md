@@ -103,7 +103,15 @@ This security issue was discovered through extensive SIP message fuzzing with [a
 
 ### Solutions and recommendations
 
-Apply the [patch](https://github.com/kamailio/kamailio/commit/ad68e402ece8089f133c10de6ce319f9e28c0692) from github or make use of a release that includes that patch (e.g. 5.1.4 or 5.0.7). At the moment no workarounds (e.g. in the configuration) are known.
+Apply the [patch](https://github.com/kamailio/kamailio/commit/ad68e402ece8089f133c10de6ce319f9e28c0692) from github or make use of a release that includes that patch (e.g. 5.1.4 or 5.0.7). For older Kamailio version and in case you need more time for an update you can add the following logic on top of to your `request_route` block in your kamailio configuration file. This will drop this malicious  message and prevent its processing.
+
+```
+if($(hdr(Viaa)[0]) != $null) {
+    xlog("invalid Via header found - dropping message");
+    drop;
+}
+
+```
 
 ### About Henning Westerholt
 
