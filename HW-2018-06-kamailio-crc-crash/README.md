@@ -3,13 +3,13 @@
 - Author: Henning Westerholt <hw at skalatan.de>
 - Fixed versions: Kamailio v5.1.4 and v5.0.7
 - References: CVE-2018-XXXX
-<!--- Kamailio Security Advisory: todo-->
-- Tested vulnerable versions: 5.1, 4.0, git master
+<!-- - Kamailio Security Advisory: https://www.kamailio.org/w/2018/03/TODO/ -->
+- Tested vulnerable versions: 5.1.3, 5.0.6, 4.0, git master
 - Timeline:
     - Report date: 2018-06-03
     - Kamailio patch: 2018-06-03
     - Kamailio release with patch: 2018-06-05
-    - Security advisory: 2018-06-13
+    - Security advisory: 2018-09-04
 
 ### Description
 
@@ -28,7 +28,6 @@ The following SIP message with several invalid `Via` header can be used to repro
 INVITE sip:0 SIP/2.0
 To: 0
 Via: SIP/2.0/UDP :]
-Viaa:
 ```
 
 You can use this python script to reproduce the crash:
@@ -45,7 +44,6 @@ for _ in range(2):
     msg = "INVITE sip:0 SIP/2.0\n" \
         "To: 0\n" \
         "Via: SIP/2.0/UDP :]\n" \
-        "Viaa:\n" \
         "\r\n"
     sock.sendall(msg)
 ```
@@ -95,23 +93,22 @@ Program received signal SIGSEGV, Segmentation fault.
 #18 0x000000000042d631 in main (argc=17, argv=0x7fffffffdc68) at main.c:2650
 ```
 
-This security issue was discovered through extensive SIP message fuzzing with [afl](http://lcamtuf.coredump.cx/afl/) and an internal toolset.
+This security issue was discovered through extensive SIP message fuzzing with [afl](http://lcamtuf.coredump.cx/afl/?target=_blank) and an internal toolset.
 
 ### Solutions and recommendations
 
-Apply the correct patch [git master](https://github.com/kamailio/kamailio/commit/ad68e402ece8089f133c10de6ce319f9e28c0692?target=_blank), [version 5.1](https://github.com/kamailio/kamailio/commit/d67b2f9874ca23bd69f18df71b8f53b1b6151f6d?target=_blank), or [version 5.0](https://github.com/kamailio/kamailio/commit/f07dabffef98c7088cdbc2bd695a4ae7a241b159?target=_blank) from github or make use of a release that includes that patch (e.g. 5.1.4 or 5.0.7). For older Kamailio version and in case you need more time for an update you can add the following logic on top of to your `request_route` block in your kamailio configuration file. This will drop this malicious  message and prevent its processing.
+Apply the correct patch [git master](https://github.com/kamailio/kamailio/commit/ad68e402ece8089f133c10de6ce319f9e28c0692?target=_blank), [version 5.1](https://github.com/kamailio/kamailio/commit/d67b2f9874ca23bd69f18df71b8f53b1b6151f6d?target=_blank), or [version 5.0](https://github.com/kamailio/kamailio/commit/f07dabffef98c7088cdbc2bd695a4ae7a241b159?target=_blank) from github or make use of a release that includes that patch (e.g. 5.1.4 or 5.0.7). For older Kamailio version and in case you need more time for an update you can add the following logic on top of to your `request_route` block in your kamailio configuration file. This will drop this malicious  message and prevent its processing. If you use IPv6 in your Kamailio server configuration you need to test this workaround intensively.
 
 ```
-if($(hdr(Viaa)) != $null) {
-    xlog("invalid Via header found - dropping message");
+if($(hdr(Via))=~":]") {
+    xlog("invalid Via header found - dropping message\n");
     drop;
 }
-
 ```
 
 ### About Henning Westerholt
 
-[Henning Westerholt](https://skalatan.de/about) is a core developer of Kamailio since 2007. He provides consulting services for Kamailio in the performance, reliability and security areas.
+[Henning Westerholt](https://skalatan.de/about) is a core developer of Kamailio since 2007. He provides consulting services for Kamailio and VoIP services in the performance, reliability and security areas.
 
 ## Disclaimer
 
