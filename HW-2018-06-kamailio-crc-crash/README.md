@@ -100,7 +100,7 @@ This security issue was discovered through extensive SIP message fuzzing with [a
 Apply the correct patch [git master](https://github.com/kamailio/kamailio/commit/ad68e402ece8089f133c10de6ce319f9e28c0692?target=_blank), [version 5.1](https://github.com/kamailio/kamailio/commit/d67b2f9874ca23bd69f18df71b8f53b1b6151f6d?target=_blank), or [version 5.0](https://github.com/kamailio/kamailio/commit/f07dabffef98c7088cdbc2bd695a4ae7a241b159?target=_blank) from github or make use of a release that includes that patch (e.g. 5.1.4 or 5.0.7). For older Kamailio version and in case you need more time for an update you can add the following logic on top of to your `request_route` block in your kamailio configuration file. This will drop this malicious  message and prevent its processing. If you use IPv6 in your Kamailio server configuration you need to test this workaround intensively.
 
 ```
-if($(hdr(Via))=~":]") {
+if($sel(Via.host) == $null) {
     xlog("invalid Via header found - dropping message\n");
     drop;
 }
