@@ -2,7 +2,7 @@
 
 - Author: Henning Westerholt <hw at skalatan.de>
 - Fixed versions: Kamailio v5.1.4 and v5.0.7
-- References: CVE-2018-XXXX
+- References: CVE-2018-16657
 <!-- - Kamailio Security Advisory: https://www.kamailio.org/w/2018/03/TODO/ -->
 - Tested vulnerable versions: 5.1.3, 5.0.6, 4.0, git master
 - Timeline:
@@ -13,7 +13,7 @@
 
 ### Description
 
-There exists a security vulnerability in the Kamailio core related to Via header processing. A specially crafted SIP message with several invalid `Via` headers causes a segmentation fault and crashes Kamailio. The reason is missing input validation in the `crcitt_string_array` core function for calculating a CRC hash for To tags.  An additional error is present in the `check_via_address` core function, this function also misses input validation.
+There exists a security vulnerability in the Kamailio core related to Via header processing. A specially crafted SIP message with an invalid `Via` header causes a segmentation fault and crashes Kamailio. The reason is missing input validation in the `crcitt_string_array` core function for calculating a CRC hash for To tags.  An additional error is present in the `check_via_address` core function, this function also misses input validation.
 
 ### Impact
 
