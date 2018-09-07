@@ -108,7 +108,7 @@ if($sel(Via.host) == $null) {
 
 ### About Henning Westerholt
 
-[Henning Westerholt](https://skalatan.de/about) is a core developer of Kamailio since 2007. He provides consulting services for Kamailio and VoIP services in the performance, reliability and security areas.
+[Henning Westerholt](https://skalatan.de/about) is a core developer of Kamailio since 2007. He provides for Kamailio and VoIP services in the performance, reliability and security areas.
 
 ## Disclaimer
 
